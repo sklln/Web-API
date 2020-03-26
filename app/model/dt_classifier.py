@@ -34,24 +34,35 @@ class DecisionTreeClassifierModel:
         predicted_label = self.labels.columns[y_pred.argmax()]
         return predicted_label
 
-dt_classifier = DecisionTreeClassifierModel('model_resources/covid_feats.csv', 'model_resources/covid_labels.csv')
+dt_classifier = DecisionTreeClassifierModel('model_resources/covid_feats_2.csv', 'model_resources/covid_labels_2.csv')
 
 def get_prediction_from_single_vector(x_vec=None):
     x_vec_processed = convert_to_features_tensor(x_vec)
-    y_pred = dt_classifier.predict([x_vec])
+    y_pred = dt_classifier.dt.predict([x_vec_processed])
     predicted_label = dt_classifier.labels.columns[y_pred.argmax()]
     return predicted_label
 
+
 def convert_to_features_tensor(item):
-    # feat_vec = []
-    # feat_vec.append(item.Age if type(item.Age)==float else float(item.Age))
-    # feat_vec.append(calculate_bmi(item))
-    # feat_vec.append(1)
-    # feat_vec.append(1 if type(item.Gender)=='female' else 2)
-    # feat_vec.append(1 if type(item.Smoking) == 'yes' else 0)
-    # feat_vec.append(1)
-    # feat_vec.append(1)
-    # feat_vec.append(1 if type(item.Exercise) == 'yes' else 0)
-    # feat_vec.append(1 if type(item.Alcohol) == 'yes' else 0)
-    # feat_tensor = torch.tensor(feat_vec, dtype=torch.float)
-    return feat_tensor
+    feat_vec = []
+    # feat_vec.append(item.aches_pains)
+    # feat_vec.append(item.cough)
+    # feat_vec.append(item.diarrhea)
+    # feat_vec.append(item.fatigue)
+    # feat_vec.append(item.fever_chills)
+    # feat_vec.append(item.headache)
+    # feat_vec.append(item.running_nose)
+    # feat_vec.append(item.breathless)
+    # feat_vec.append(item.sneezing)
+    # feat_vec.append(item.sore_throat)
+    feat_vec.append(item.aches_pains)
+    feat_vec.append(item.breathlessness)
+    feat_vec.append(item.cough)
+    feat_vec.append(item.diarrhea)
+    feat_vec.append(item.fatigue)
+    feat_vec.append(item.fever)
+    feat_vec.append(item.headache)
+    feat_vec.append(item.runny_nose)
+    feat_vec.append(item.sneezing)
+    feat_vec.append(item.sore_throat)
+    return feat_vec
